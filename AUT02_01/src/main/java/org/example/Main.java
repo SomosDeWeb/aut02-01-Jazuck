@@ -171,7 +171,25 @@ public class Main {
             System.out.println("------------------------");
         }
     }
-    private static void buscarNombre() {}
-    private static void calcularMedia() {}
+    private static void buscarNombre() {
+        System.out.print("Introduzca nombre del estudiante: ");
+        String nombreBusqueda = sc.nextLine().trim().toLowerCase();
+
+        boolean busqueda = false;
+
+        for (Estudiante e : estudiantesList) {
+            if (e.getNombre().toLowerCase().equals(nombreBusqueda)) {
+                System.out.println("Estudiante encontrado:\n" + e);
+                busqueda = true;
+            }
+        }
+
+        if (!busqueda) {
+            System.out.println("No se encontró ese nombre.");
+        }
+    }
+    
+    private static void calcularMedia() {
+    }
     private static void mejorEstudiante() {}
 }
