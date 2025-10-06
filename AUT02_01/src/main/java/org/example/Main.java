@@ -11,13 +11,13 @@ public class Main {
     static class Estudiante {
         private String nombre;
         private int edad;
-        private double nota;
+        private double notaMedia;
         private boolean matriculado;
 
-        public Estudiante(String nombre, int edad, double nota,boolean matriculado) {
+        public Estudiante(String nombre, int edad, double notaMedia, boolean matriculado) {
             this.nombre = nombre;
             this.edad = edad;
-            this.nota = nota;
+            this.notaMedia = notaMedia;
             this.matriculado = matriculado;
         }
 
@@ -29,8 +29,8 @@ public class Main {
             return edad;
         }
 
-        public double getNota() {
-            return nota;
+        public double getNotaMedia() {
+            return notaMedia;
         }
 
         public boolean getMatriculado() {
@@ -39,11 +39,11 @@ public class Main {
 
         @Override
         public String toString() {
-            String estado = matriculado ? "Sí" : "No";
+            String estado = matriculado ? "Si" : "No";
             return nombre
                     + "\n — Edad: " + edad
-                    + "\n — Nota: " + nota
-                    + "\n — Matriculado: " + matriculado;
+                    + "\n — Nota: " + notaMedia
+                    + "\n — Matriculado: " + estado;
         }
     }
 
@@ -159,7 +159,18 @@ public class Main {
 
         return matriculado;
     }
-    private static void listarEstudiantes() {}
+    private static void listarEstudiantes() {
+        System.out.println("\n=== LISTA DE ESTUDIANTES ===");
+        if (estudiantesList.isEmpty()) {
+            System.out.println("No hay estudiantes registrados.");
+            return;
+        }
+
+        for (Estudiante e : estudiantesList) {
+            System.out.println(e);
+            System.out.println("------------------------");
+        }
+    }
     private static void buscarNombre() {}
     private static void calcularMedia() {}
     private static void mejorEstudiante() {}
