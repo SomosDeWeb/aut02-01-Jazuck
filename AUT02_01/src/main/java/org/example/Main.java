@@ -203,5 +203,19 @@ public class Main {
         notaMediaGlobal= notaMediaGlobal/estudiantesList.size();
         System.out.printf("Nota media general: %.2f%n", notaMediaGlobal);
     }
-    private static void mejorEstudiante() {}
+    private static void mejorEstudiante() {
+        if (estudiantesList.isEmpty()) {
+            System.out.println("No hay estudiantes registrados.");
+            return;
+        }
+
+        Estudiante masNota = estudiantesList.get(0);
+        for (Estudiante e : estudiantesList) {
+            if (e.getNotaMedia() > masNota.getNotaMedia()) {
+                masNota = e;
+            }
+        }
+
+        System.out.println("Estudiante con la mejor nota: " + masNota);
+    }
 }
