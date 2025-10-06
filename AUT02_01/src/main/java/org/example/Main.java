@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.text.DecimalFormat;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
@@ -159,6 +160,7 @@ public class Main {
 
         return matriculado;
     }
+
     private static void listarEstudiantes() {
         System.out.println("\n=== LISTA DE ESTUDIANTES ===");
         if (estudiantesList.isEmpty()) {
@@ -171,6 +173,7 @@ public class Main {
             System.out.println("------------------------");
         }
     }
+
     private static void buscarNombre() {
         System.out.print("Introduzca nombre del estudiante: ");
         String nombreBusqueda = sc.nextLine().trim().toLowerCase();
@@ -188,8 +191,17 @@ public class Main {
             System.out.println("No se encontró ese nombre.");
         }
     }
-    
+
     private static void calcularMedia() {
+
+        double notaMediaGlobal=0;
+
+        for (Estudiante e : estudiantesList) {
+            notaMediaGlobal+= e.getNotaMedia();
+        }
+
+        notaMediaGlobal= notaMediaGlobal/estudiantesList.size();
+        System.out.printf("Nota media general: %.2f%n", notaMediaGlobal);
     }
     private static void mejorEstudiante() {}
 }
