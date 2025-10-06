@@ -83,6 +83,7 @@ public class Main {
                 case 6:
                     continuar = false;
                     System.out.println("Has salido del programa...");
+                    sc.close();
                     break;
                 default:
                     System.out.println("Opción inválida, intente de nuevo.");
@@ -104,10 +105,10 @@ public class Main {
         String nombre = sc.nextLine();
 
         int edad = leerEntero("Edad: ");
-        double nota = leerDouble("Nota: ");
+        double notaMedia = leerDouble("Nota: ");
         boolean matriculado = comprobarMatriculado();
 
-        estudiantesList.add(new Estudiante(nombre, edad, nota, matriculado));
+        estudiantesList.add(new Estudiante(nombre, edad, notaMedia, matriculado));
         System.out.println("Estudiante añadido correctamente.");
     }
 
@@ -181,7 +182,7 @@ public class Main {
         boolean busqueda = false;
 
         for (Estudiante e : estudiantesList) {
-            if (e.getNombre().toLowerCase().equals(nombreBusqueda)) {
+            if (e.getNombre().toLowerCase().contains(nombreBusqueda)) {
                 System.out.println("Estudiante encontrado:\n" + e);
                 busqueda = true;
             }
@@ -216,6 +217,7 @@ public class Main {
             }
         }
 
-        System.out.println("Estudiante con la mejor nota: " + masNota);
+        System.out.println("Estudiante con la mejor nota: \n" + masNota);
+        
     }
 }
