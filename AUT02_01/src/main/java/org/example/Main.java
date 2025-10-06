@@ -1,11 +1,59 @@
 package org.example;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 //TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
+
+    private static Scanner sc = new Scanner(System.in);
+
+    static class Estudiante {
+        private String nombre;
+        private int edad;
+        private double nota;
+        private boolean matriculado;
+
+        public Estudiante(String nombre, int edad, double nota,boolean matriculado) {
+            this.nombre = nombre;
+            this.edad = edad;
+            this.nota = nota;
+            this.matriculado = matriculado;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public int getEdad() {
+            return edad;
+        }
+
+        public double getNota() {
+            return nota;
+        }
+
+        public boolean getMatriculado() {
+            return matriculado;
+        }
+
+        @Override
+        public String toString() {
+            String estado = matriculado ? "Sí" : "No";
+            return nombre
+                    + "\n — Edad: " + edad
+                    + "\n — Nota: " + nota
+                    + "\n — Matriculado: " + matriculado;
+        }
+    }
+
+    private static ArrayList<Estudiante> estudiantesList = new ArrayList<>();
+
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+
+        estudiantesList.add(new Estudiante("Ana", 20, 8.5, true));
+        estudiantesList.add(new Estudiante("Luis", 18, 9.5, false));
+        estudiantesList.add(new Estudiante("María", 19, 5.5, true));
 
         System.out.println("=== GESTOR DE ESTUDIANTES ===");
         boolean continuar = true;
@@ -50,11 +98,22 @@ public class Main {
         System.out.println("6. Salir");
     }
 
+    private static void aniadirEstudiante() {
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+
+        int edad = leerEntero("Edad: ");
+        double nota = leerDouble("Nota: ");
+        boolean matriculado = comprobarMatriculado();
+
+        estudiantesList.add(new Estudiante(nombre, edad, nota, matriculado));
+        System.out.println("Estudiante añadido correctamente.");
+    }
+
     private static int leerEntero(String mensaje){
-        Scanner sc = new Scanner(System.in);
         int numero;
 
-        while (true) {
+        do{
             System.out.print(mensaje);
             try {
                 numero = Integer.parseInt(sc.nextLine());
@@ -62,10 +121,44 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Introduzca un número válido.");
             }
+        }while (true);
+    }
+
+    private static double leerDouble(String mensaje) {
+        double numero;
+        while (true) {
+            System.out.print(mensaje);
+            try {
+                numero = Double.parseDouble(sc.nextLine());
+                return numero;
+            } catch (NumberFormatException e) {
+                System.out.println("Introduzca un número válido (usa punto).");
+            }
         }
     }
 
-    private static void aniadirEstudiante() {}
+    private static boolean comprobarMatriculado(){
+        boolean respuestaValida = false;
+        boolean matriculado = false;
+
+        do {
+            System.out.print("¿Está matriculado? (si/no): ");
+            String respuesta = sc.nextLine().trim().toLowerCase();
+
+            if (respuesta.equals("si")) {
+                matriculado = true;
+                respuestaValida = true;
+            } else if (respuesta.equals("no")) {
+                matriculado = false;
+                respuestaValida = true;
+            } else {
+                System.out.println("Incorrecto. Debe escribir 'si' o 'no'.");
+            }
+
+        } while (!respuestaValida);
+
+        return matriculado;
+    }
     private static void listarEstudiantes() {}
     private static void buscarNombre() {}
     private static void calcularMedia() {}
