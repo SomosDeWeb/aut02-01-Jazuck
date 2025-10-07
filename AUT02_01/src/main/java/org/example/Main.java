@@ -101,11 +101,39 @@ public class Main {
     }
 
     private static void aniadirEstudiante() {
-        System.out.print("Nombre: ");
-        String nombre = sc.nextLine();
 
-        int edad = leerEntero("Edad: ");
-        double notaMedia = leerDouble("Nota: ");
+        String nombre;
+        int edad;
+        double notaMedia;
+        boolean valida;
+
+        do {
+            System.out.print("Nombre: ");
+            nombre = sc.nextLine().trim();
+
+            if (nombre.isEmpty()) {
+                System.out.println("El nombre no puede estar vacío.");
+            }
+        } while (nombre.isEmpty());
+
+        do {
+            edad = leerEntero("Edad: ");
+            valida=edad>=0&&edad<=120;
+
+            if(!valida){
+                System.out.println("La edad debe estar entre 0 y 120 años");
+            }
+        }while(!valida);
+
+        do {
+            notaMedia = leerDouble("Nota: ");
+            valida=notaMedia>=1&&notaMedia<=10;
+
+            if(!valida){
+                System.out.println("La nota media debe estar entre 1 y 10");
+            }
+        }while(!valida);
+
         boolean matriculado = comprobarMatriculado();
 
         estudiantesList.add(new Estudiante(nombre, edad, notaMedia, matriculado));
@@ -128,7 +156,7 @@ public class Main {
 
     private static double leerDouble(String mensaje) {
         double numero;
-        while (true) {
+        do{
             System.out.print(mensaje);
             try {
                 numero = Double.parseDouble(sc.nextLine());
@@ -136,7 +164,7 @@ public class Main {
             } catch (NumberFormatException e) {
                 System.out.println("Introduzca un número válido (usa punto).");
             }
-        }
+        }while (true);
     }
 
     private static boolean comprobarMatriculado(){
@@ -163,12 +191,9 @@ public class Main {
     }
 
     private static void listarEstudiantes() {
-        System.out.println("\n=== LISTA DE ESTUDIANTES ===");
-        if (estudiantesList.isEmpty()) {
-            System.out.println("No hay estudiantes registrados.");
-            return;
-        }
+        if (comprobarListaVacia()) return;
 
+        System.out.println("\n=== LISTA DE ESTUDIANTES ===");
         for (Estudiante e : estudiantesList) {
             System.out.println(e);
             System.out.println("------------------------");
@@ -176,6 +201,8 @@ public class Main {
     }
 
     private static void buscarNombre() {
+        if (comprobarListaVacia()) return;
+
         System.out.print("Introduzca nombre del estudiante: ");
         String nombreBusqueda = sc.nextLine().trim().toLowerCase();
 
@@ -184,6 +211,7 @@ public class Main {
         for (Estudiante e : estudiantesList) {
             if (e.getNombre().toLowerCase().contains(nombreBusqueda)) {
                 System.out.println("Estudiante encontrado:\n" + e);
+                System.out.println("------------------------");
                 busqueda = true;
             }
         }
@@ -194,6 +222,7 @@ public class Main {
     }
 
     private static void calcularMedia() {
+        if (comprobarListaVacia()) return;
 
         double notaMediaGlobal=0;
 
@@ -205,10 +234,7 @@ public class Main {
         System.out.printf("Nota media general: %.2f%n", notaMediaGlobal);
     }
     private static void mejorEstudiante() {
-        if (estudiantesList.isEmpty()) {
-            System.out.println("No hay estudiantes registrados.");
-            return;
-        }
+        if (comprobarListaVacia()) return;
 
         Estudiante masNota = estudiantesList.get(0);
         for (Estudiante e : estudiantesList) {
@@ -218,6 +244,14 @@ public class Main {
         }
 
         System.out.println("Estudiante con la mejor nota: \n" + masNota);
-        
+
+    }
+
+    private static boolean comprobarListaVacia() {
+        if (estudiantesList.isEmpty()) {
+            System.out.println("No hay estudiantes registrados.");
+            return true;
+        }
+        return false;
     }
 }
